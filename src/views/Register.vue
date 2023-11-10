@@ -86,6 +86,7 @@
 import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
+import { register } from "../services/apifaker/auth";
 export default {
   props: {},
   data() {
@@ -108,18 +109,19 @@ export default {
   methods: {
     async handleRegister(e) {
       e.preventDefault();
-      try {
-        const { data: response } = await axios.post(
-          "http://localhost:3333/api/register",
-          this.form
-        );
 
-        this.toast.success("Registrado com sucesso!");
-        this.router.push("/login");
-      } catch (error) {
-        console.log("Api error:", error);
-        this.toast.error("Aconteceu um erro inesperado!");
+      const response = register(
+        this.form.name,
+        this.form.email,
+        this.form.password
+      );
+      console.log(response);
+
+      if (!response.success) {
+        return this.toast.error("Aconteceu um erro inesperado!");
       }
+
+      this.toast.success("Registrado com sucesso!");
     },
   },
 };

@@ -38,7 +38,7 @@
 
             <div
               v-if="showUserDropDown"
-              class="z-50 absolute my-4 top-10 right-32 text-base list-none w-50 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              class="z-50 absolute my-4 top-10 right-4 sm:right-32 text-base list-none w-50 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"
             >
               <div class="px-4 py-3">
@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       showUserDropDown: false,
-      showCreateItemModal: true,
+      showCreateItemModal: false,
       user: this.$store.state.user,
     };
   },

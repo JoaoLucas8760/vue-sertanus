@@ -70,6 +70,7 @@
 import axios from "axios";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
+import { login } from "../services/apifaker/auth";
 export default {
   props: {},
   data() {
@@ -94,20 +95,31 @@ export default {
 
   methods: {
     async handleLogin() {
-      try {
-        const { data: response } = await axios.post(
-          "http://localhost:3333/api/login",
-          this.form
-        );
+      const response = login(this.form.email, this.form.password);
 
-        console.log("response: ", response);
-        this.$store.state.user = response.user;
-        this.router.push("/");
-        this.toast.success("Logado com sucesso!");
-      } catch (error) {
-        console.log("Api error:", error);
-        this.toast.error("Aconteceu um erro inesperado!");
+      if (!response.success) {
+        return this.toast.error("Credenciais invalidas");
       }
+
+      console.log("response ", response);
+
+      this.$store.state.user = response.user;
+      this.toast.success("Logado com sucesso!");
+      this.router.push("/");
+
+      // try {
+      //   const { data: response } = await axios.post(
+      //     "http://localhost:3333/api/login",
+      //     this.form
+      //   );
+
+      //   console.log("response: ", response);
+      //
+      //   this.toast.success("Logado com sucesso!");
+      // } catch (error) {
+      //   console.log("Api error:", error);
+      //   this.toast.error("Aconteceu um erro inesperado!");
+      // }
     },
   },
 

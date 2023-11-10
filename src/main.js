@@ -16,6 +16,19 @@ const toastificationOptions = {
   newestOnTop: false,
 };
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!store.state.user) {
+      next("/login");
+      return;
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
 createApp(App)
   .use(router)
   .use(store)

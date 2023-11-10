@@ -2,13 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    user: {
-      id: null,
-      name: null,
-      email: null,
-    },
-
-    userToken: null,
+    user: null,
 
     items: [],
   },
