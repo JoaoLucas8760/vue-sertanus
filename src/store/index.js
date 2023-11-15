@@ -1,12 +1,17 @@
 import { createStore } from "vuex";
+import { readItems } from "../services/apifaker/itemsCrud";
 
 export default createStore({
   state: {
     user: null,
 
-    items: [],
+    items: readItems(),
   },
-  mutations: {},
+  mutations: {
+    deleteItem(state, itemId) {
+      state.items = state.items.filter((item) => item.id !== itemId);
+    },
+  },
 
   actions: {},
   getters: {},
